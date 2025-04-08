@@ -1,12 +1,8 @@
 // Boootstrap.
 import {
-  // Container,
   Card,
   Button
 } from 'react-bootstrap';
-
-// Icons.
-import { FaRegStickyNote } from "react-icons/fa";
 
 // Utilities.
 import { timeAgo } from '../../utils';
@@ -18,7 +14,6 @@ function Note({title, contents, created}) {
         <Card.Header className='p-3'>
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center gap-2">
-              <FaRegStickyNote />
               <strong>{title}</strong>
             </div>
             <div className="text-muted">
