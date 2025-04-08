@@ -11,14 +11,20 @@ import Footer from './components/footer/footer.component';
 import Header from './components/header/header.component';
 import NoteList from './components/noteList/noteList.component';
 
+// Modals
+import DeleteNoteModal from './components/modals/deleteNoteModal/deleteNote.modal';
+
 // API
-import { getAllNotes } from './api/notes.api';
+import { getAllNotes, deleteNote } from './api/notes.api';
 
 
 function App() {
   const [notes, setnotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [currentNote, setCurrentNote] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     getAllNotes(setnotes, setError, setLoading);
@@ -47,9 +53,18 @@ function App() {
     <div>
       <Header />
       <Container className='h-[calc(100vh-112px)] w-full overflow-auto'>
-        <NoteList notes={notes}/>
+        <NoteList
+          notes={notes}
+          setCurrentNote={setCurrentNote}
+          setShowDeleteModal={setShowDeleteModal}
+        />
       </Container>
       <Footer />
+      <DeleteNoteModal
+          show={showDeleteModal}
+          onConfirm={() => deleteNote(currentNote?.id, () => setShowDeleteModal(false))}
+          onHide={() => setShowDeleteModal(false)}
+        />
     </div>
   );
 }
