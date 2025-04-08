@@ -10,12 +10,12 @@ export const getAllNotes = async (onFetchCallback, onErrorCallback, onLoadCallba
       }
       const data = await response.json();
       console.log("getAllNotes", data);
-      onFetchCallback(data);;
+      typeof onFetchCallback === 'function' && onFetchCallback(data);
     } catch (error) {
-        onErrorCallback(error);
+        typeof onErrorCallback === 'function' && onErrorCallback(error);
     } finally {
         setTimeout(() => {
-            onLoadCallback(false);
+            typeof onLoadCallback === 'function' && onLoadCallback(false);
         }, 2000);
     }
 };
@@ -29,12 +29,12 @@ export const getNote = async (id, onFetchCallback, onErrorCallback, onLoadCallba
       }
       const data = await response.json();
       console.log("getNote", data);
-      onFetchCallback(data);;
+      typeof onFetchCallback === 'function' && onFetchCallback(data);
     } catch (error) {
-        onErrorCallback(error);
+        typeof onErrorCallback === 'function' && onErrorCallback(error);
     } finally {
         setTimeout(() => {
-            onLoadCallback(false);
+            typeof onLoadCallback === 'function' && onLoadCallback(false);
         }, 2000);
     }
 };
@@ -54,12 +54,12 @@ export const updateNote = async (note, onUpdateCallback, onErrorCallback, onLoad
       }
       const data = await response.json();
       console.log("updateNote", data);
-      onUpdateCallback(data);;
+      typeof onUpdateCallback === 'function' && onUpdateCallback(data);
     } catch (error) {
-        onErrorCallback(error);
+        typeof onErrorCallback === 'function' && onErrorCallback(error);
     } finally {
         setTimeout(() => {
-            onLoadCallback(false);
+            typeof onLoadCallback === 'function' && onLoadCallback(false);
         }, 2000);
     }
 };
@@ -73,14 +73,12 @@ export const deleteNote = async (id, onDeleteCallback, onErrorCallback, onLoadCa
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      console.log("deleteNote", data);
-      onDeleteCallback(data);;
+      typeof onDeleteCallback === 'function' && onDeleteCallback();
     } catch (error) {
-        onErrorCallback(error);
+        typeof onErrorCallback === 'function' && onErrorCallback(error);
     } finally {
         setTimeout(() => {
-            onLoadCallback(false);
+            typeof onLoadCallback === 'function' && onLoadCallback(false);
         }, 2000);
     }
 };
