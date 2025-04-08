@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Bootstrap
-import Spinner from 'react-bootstrap/Spinner';
+import { Container, Spinner } from 'react-bootstrap';
 
 // Components
+import Footer from './components/footer/footer.component';
 import Header from './components/header/header.component';
 import NoteList from './components/noteList/noteList.component';
 
@@ -40,9 +41,15 @@ function App() {
 
   if (loading) {
     return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <div>
+        <Header />
+        <Container className='h-[calc(100vh-112px)] w-100 overflow-auto'>
+          <Spinner size='lg' animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </Container>
+        <Footer />
+      </div>
     );
   }
   if (error) {
@@ -54,7 +61,10 @@ function App() {
   return (
     <div>
       <Header />
-      <NoteList notes={notes}/>
+      <Container className='h-[calc(100vh-112px)] w-full overflow-auto'>
+        <NoteList notes={notes}/>
+      </Container>
+      <Footer />
     </div>
   );
 }
