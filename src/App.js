@@ -11,8 +11,9 @@ import Footer from './components/footer/footer.component';
 import Header from './components/header/header.component';
 import NoteList from './components/noteList/noteList.component';
 
-// Environment variables.
-const { REACT_APP_API_BASE_URL } = process.env;
+// API
+import { getAllNotes } from './api/notes.api';
+
 
 function App() {
   const [notes, setnotes] = useState([]);
@@ -20,31 +21,15 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await fetch(`${REACT_APP_API_BASE_URL}/notes`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data);
-        setnotes(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNotes();
+    getAllNotes(setnotes, setError, setLoading);
   }, []);
 
   if (loading) {
     return (
       <div>
         <Header />
-        <Container className='h-[calc(100vh-112px)] w-100 overflow-auto'>
-          <Spinner size='lg' animation="border" role="status">
+        <Container className='h-[calc(100vh-112px)] w-100 overflow-auto flex justify-center'>
+          <Spinner className="m-10" animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </Container>
