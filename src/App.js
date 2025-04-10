@@ -13,10 +13,11 @@ import NoteList from './components/noteList/noteList.component';
 
 // Modals
 import DeleteNoteModal from './components/modals/deleteNote.modal';
+import EditNoteModal from './components/modals/editNote.modal';
 import NewNoteModal from './components/modals/newNote.modal';
 
 // API
-import { getAllNotes, deleteNote, createNote } from './api/notes.api';
+import { getAllNotes, deleteNote, createNote, updateNote } from './api/notes.api';
 
 // State
 import { useNoteStore } from './store/note.store';
@@ -38,10 +39,10 @@ function App() {
   // Modal State.
   const {
     showDeleteModal,
-    // showEditModal,
+    showEditModal,
     showNewNoteModal,
     setShowDeleteModal,
-    // setShowEditModal,
+    setShowEditModal,
     setShowNewNoteModal,
   } = useModalStore();
 
@@ -89,6 +90,14 @@ function App() {
           onHide={() => setShowNewNoteModal(false)}
           onConfirm={(title, contents) => createNote({title, contents}, () => {
             setShowNewNoteModal(false);
+            setLoading(true);
+          })}
+      />
+      <EditNoteModal
+          show={showEditModal}
+          onHide={() => setShowEditModal(false)}
+          onConfirm={(id, title, contents) => updateNote({id, title, contents}, () => {
+            setShowEditModal(false);
             setLoading(true);
           })}
       />

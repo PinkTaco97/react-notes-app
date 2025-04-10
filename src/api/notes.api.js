@@ -16,7 +16,7 @@ export const getAllNotes = async (onFetchCallback, onErrorCallback, onLoadCallba
     } finally {
         setTimeout(() => {
           typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 2000);
+        }, 1);
     }
 };
 
@@ -35,7 +35,7 @@ export const getNote = async (id, onFetchCallback, onErrorCallback, onLoadCallba
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 2000);
+        }, 1);
     }
 };
 
@@ -60,7 +60,7 @@ export const updateNote = async (note, onUpdateCallback, onErrorCallback, onLoad
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 2000);
+        }, 1);
     }
 };
 
@@ -79,7 +79,7 @@ export const deleteNote = async (id, onDeleteCallback, onErrorCallback, onLoadCa
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 2000);
+        }, 1);
     }
 };
 
@@ -102,6 +102,6 @@ export const createNote = async (note, onPostCallback, onErrorCallback, onLoadCa
   } finally {
       setTimeout(() => {
           typeof onLoadCallback === 'function' && onLoadCallback(false);
-      }, 2000);
+      }, 1);
   }
 };

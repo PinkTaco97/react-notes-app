@@ -2,7 +2,7 @@
 import { Container, Navbar, Button } from 'react-bootstrap';
 
 // Store.
-import { useModalStore } from '../../store/modal.store';
+import { useModalStore } from '../../store/modal.store'; 
 
 function Header() {
   const { setShowNewNoteModal } = useModalStore();

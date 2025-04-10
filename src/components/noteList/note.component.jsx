@@ -17,12 +17,18 @@ function Note({ note }) {
   const { setCurrentNote } = useNoteStore();
 
   // Modal State.
-  const { setShowDeleteModal } = useModalStore();
+  const { setShowDeleteModal, setShowEditModal } = useModalStore();
 
   const onDelete = () => {
     console.log('@TEST/DELETE/', note.id);
     setCurrentNote(note);
     setShowDeleteModal(true);
+  }
+
+  const onEdit = () => {
+    console.log('@TEST/EDIT/', note.id);
+    setCurrentNote(note);
+    setShowEditModal(true);
   }
 
   return (
@@ -42,8 +48,20 @@ function Note({ note }) {
           {note.contents}
         </Card.Body>
         <Card.Footer className="w-full d-flex align-items-center justify-content-end gap-2 mr-auto">
-          <Button variant="outline-secondary" className="btn-sm float-end">Edit</Button>
-          <Button variant="outline-danger" className="btn-sm float-end" onClick={() => onDelete()}>Delete</Button>
+          <Button
+            variant="outline-secondary"
+            className="btn-sm float-end"
+            onClick={() => onEdit()}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outline-danger"
+            className="btn-sm float-end"
+            onClick={() => onDelete()}
+          >
+            Delete
+          </Button>
         </Card.Footer>
       </Card>
     </div>
