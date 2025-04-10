@@ -1,5 +1,5 @@
 // Environment variables.
-const { REACT_APP_API_BASE_URL } = process.env;
+const { REACT_APP_API_BASE_URL, REACT_APP_TIMEOUT } = process.env;
 
 // Fetch all notes from the API
 export const getAllNotes = async (onFetchCallback, onErrorCallback, onLoadCallback) => {
@@ -16,7 +16,7 @@ export const getAllNotes = async (onFetchCallback, onErrorCallback, onLoadCallba
     } finally {
         setTimeout(() => {
           typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 1);
+        }, REACT_APP_TIMEOUT);
     }
 };
 
@@ -35,7 +35,7 @@ export const getNote = async (id, onFetchCallback, onErrorCallback, onLoadCallba
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 1);
+        }, REACT_APP_TIMEOUT);
     }
 };
 
@@ -60,7 +60,7 @@ export const updateNote = async (note, onUpdateCallback, onErrorCallback, onLoad
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 1);
+        }, REACT_APP_TIMEOUT);
     }
 };
 
@@ -79,7 +79,7 @@ export const deleteNote = async (id, onDeleteCallback, onErrorCallback, onLoadCa
     } finally {
         setTimeout(() => {
             typeof onLoadCallback === 'function' && onLoadCallback(false);
-        }, 1);
+        }, REACT_APP_TIMEOUT);
     }
 };
 
@@ -102,6 +102,6 @@ export const createNote = async (note, onPostCallback, onErrorCallback, onLoadCa
   } finally {
       setTimeout(() => {
           typeof onLoadCallback === 'function' && onLoadCallback(false);
-      }, 1);
+      }, REACT_APP_TIMEOUT);
   }
 };
