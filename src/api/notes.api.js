@@ -82,3 +82,26 @@ export const deleteNote = async (id, onDeleteCallback, onErrorCallback, onLoadCa
         }, 2000);
     }
 };
+
+// Send delete request to the API
+export const createNote = async (note, onPostCallback, onErrorCallback, onLoadCallback) => {
+  try {
+    const response = await fetch(`${REACT_APP_API_BASE_URL}/notes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(note),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    typeof onPostCallback === 'function' && onPostCallback();
+  } catch (error) {
+      typeof onErrorCallback === 'function' && onErrorCallback(error);
+  } finally {
+      setTimeout(() => {
+          typeof onLoadCallback === 'function' && onLoadCallback(false);
+      }, 2000);
+  }
+};

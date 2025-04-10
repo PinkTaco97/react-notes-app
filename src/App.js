@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,9 +13,10 @@ import NoteList from './components/noteList/noteList.component';
 
 // Modals
 import DeleteNoteModal from './components/modals/deleteNote.modal';
+import NewNoteModal from './components/modals/newNote.modal';
 
 // API
-import { getAllNotes, deleteNote } from './api/notes.api';
+import { getAllNotes, deleteNote, createNote } from './api/notes.api';
 
 // State
 import { useNoteStore } from './store/note.store';
@@ -29,7 +30,6 @@ function App() {
     error,
     notes,
     loading,
-    setCurrentNote,
     setError,
     setLoading,
     setNotes,
@@ -38,11 +38,14 @@ function App() {
   // Modal State.
   const {
     showDeleteModal,
+    // showEditModal,
+    showNewNoteModal,
     setShowDeleteModal,
+    // setShowEditModal,
+    setShowNewNoteModal,
   } = useModalStore();
 
   useEffect(() => {
-    console.log('App.js: useEffect: loading:', loading);
     if(loading) {
       getAllNotes(setNotes, setError, setLoading);
     }
@@ -51,7 +54,7 @@ function App() {
   if (loading) {
     return (
       <div>
-        <Header />
+        <Header/>
         <Container className='h-[calc(100vh-112px)] w-100 overflow-auto flex justify-center'>
           <Spinner className="m-10" animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -66,7 +69,7 @@ function App() {
   }
   return (
     <div>
-      <Header />
+      <Header onNewNote={() => setShowNewNoteModal(true)}/>
       <Container className='h-[calc(100vh-112px)] w-full overflow-auto'>
         <NoteList
           notes={notes}
@@ -81,6 +84,14 @@ function App() {
           })}
           onHide={() => setShowDeleteModal(false)}
         />
+      <NewNoteModal
+          show={showNewNoteModal}
+          onHide={() => setShowNewNoteModal(false)}
+          onConfirm={(title, contents) => createNote({title, contents}, () => {
+            setShowNewNoteModal(false);
+            setLoading(true);
+          })}
+      />
     </div>
   );
 }
