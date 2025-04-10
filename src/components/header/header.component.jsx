@@ -5,7 +5,7 @@ function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Notes-App</Navbar.Brand>
+        <Navbar.Brand>React-Notes-App</Navbar.Brand>
         <Button variant="outline-secondary" className="btn-sm float-end">New Note</Button>
       </Container>
     </Navbar>

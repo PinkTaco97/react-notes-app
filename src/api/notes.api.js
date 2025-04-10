@@ -12,10 +12,10 @@ export const getAllNotes = async (onFetchCallback, onErrorCallback, onLoadCallba
       console.log("getAllNotes", data);
       typeof onFetchCallback === 'function' && onFetchCallback(data);
     } catch (error) {
-        typeof onErrorCallback === 'function' && onErrorCallback(error);
+      typeof onErrorCallback === 'function' && onErrorCallback(error);
     } finally {
         setTimeout(() => {
-            typeof onLoadCallback === 'function' && onLoadCallback(false);
+          typeof onLoadCallback === 'function' && onLoadCallback(false);
         }, 2000);
     }
 };

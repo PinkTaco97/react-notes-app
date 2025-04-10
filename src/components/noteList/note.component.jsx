@@ -4,15 +4,25 @@ import {
   Button
 } from 'react-bootstrap';
 
+// State.
+import { useNoteStore } from '../../store/note.store';
+import { useModalStore } from '../../store/modal.store';
+
 // Utilities.
 import { timeAgo } from '../../utils';
 
-function Note({note, setCurrentNote, setShowDeleteModal }) {
+function Note({ note }) {
+
+  // Note State.
+  const { setCurrentNote } = useNoteStore();
+
+  // Modal State.
+  const { setShowDeleteModal } = useModalStore();
 
   const onDelete = () => {
     console.log('@TEST/DELETE/', note.id);
-    setShowDeleteModal(true);
     setCurrentNote(note);
+    setShowDeleteModal(true);
   }
 
   return (

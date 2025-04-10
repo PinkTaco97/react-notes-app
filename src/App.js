@@ -12,23 +12,41 @@ import Header from './components/header/header.component';
 import NoteList from './components/noteList/noteList.component';
 
 // Modals
-import DeleteNoteModal from './components/modals/deleteNoteModal/deleteNote.modal';
+import DeleteNoteModal from './components/modals/deleteNote.modal';
 
 // API
 import { getAllNotes, deleteNote } from './api/notes.api';
 
+// State
+import { useNoteStore } from './store/note.store';
+import { useModalStore } from './store/modal.store';
 
 function App() {
-  const [notes, setnotes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const [currentNote, setCurrentNote] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // Note State.
+  const {
+    currentNote,
+    error,
+    notes,
+    loading,
+    setCurrentNote,
+    setError,
+    setLoading,
+    setNotes,
+  } = useNoteStore();
+
+  // Modal State.
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+  } = useModalStore();
 
   useEffect(() => {
-    getAllNotes(setnotes, setError, setLoading);
-  }, []);
+    console.log('App.js: useEffect: loading:', loading);
+    if(loading) {
+      getAllNotes(setNotes, setError, setLoading);
+    }
+  }, [loading, setNotes, setError, setLoading]);
 
   if (loading) {
     return (
@@ -46,23 +64,21 @@ function App() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  if (notes.length === 0) {
-    return <div>No notes available</div>;
-  }
   return (
     <div>
       <Header />
       <Container className='h-[calc(100vh-112px)] w-full overflow-auto'>
         <NoteList
           notes={notes}
-          setCurrentNote={setCurrentNote}
-          setShowDeleteModal={setShowDeleteModal}
         />
       </Container>
       <Footer />
       <DeleteNoteModal
           show={showDeleteModal}
-          onConfirm={() => deleteNote(currentNote?.id, () => setShowDeleteModal(false))}
+          onConfirm={() => deleteNote(currentNote?.id, () => {
+            setShowDeleteModal(false);
+            setLoading(true);
+          })}
           onHide={() => setShowDeleteModal(false)}
         />
     </div>
